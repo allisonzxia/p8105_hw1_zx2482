@@ -5,7 +5,7 @@ output: github_document
 
 ```{r}
 library(moderndive)
-library(skimr)
+library(tidyverse)
 library(ggplot2)
 ```
 
@@ -25,10 +25,11 @@ mean(early_january_weather$"temp")
 ```
 * This dataset consists hourly meterological data for LGA, JFK and EWR for the month of January 2013. 
 * The variable names are as follows: "origin","year","month","day","hour","temp","dewp","humid","wind_dir","wind_speed","wind_gust","precip","pressure","visib","time_hour"
-* The size of the dataset is 15 (# of rows) * 358 (# of columns)
+* The size of the dataset is 15 (# of columns) * 358 (# of rows)
 * The mean temperature is 39.58 F
 
 ```{r}
+# Plot
 ggplot(early_january_weather, aes (x =time_hour,y = temp, color = humid))+
   geom_point()
 ```
@@ -36,8 +37,28 @@ ggplot(early_january_weather, aes (x =time_hour,y = temp, color = humid))+
 The scatterplot shows the variability of temperatures from January 1st to 15th at three major airports in the New York area. The fluctuations on the graph indicate that the temperature rises and falls throughout the day. Overall, this chart shows a slightly upward trend, implying the temperature might have increased during January 1-15.The humidity throughout the month is primarily between 40-80%, but from approximately January 12th to 14th, the humidity is noticeably higher than usual, reaching 90-100%.
 
 ```{r}
+# Save the plot
 ggsave("scatterplot1.png")
 ```
 
+# Problem 2
+```{r}
+# Create the data frame
+prob2_df = 
+  tibble(
+    samp = rnorm(10),
+    samp_gt_0 = samp > 0,
+    char_vec = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+    factor_vec = factor(c("low", "low", "low", "mid", "mid", "mid", "high", "high", "high", "high"))
+  )
+```
 
+```{r}
+# Take mean of each variable
+mean(pull(prob2_df, samp))
+mean(pull(prob2_df, samp_gt_0))
+mean(pull(prob2_df, char_vec))
+mean(pull(prob2_df, factor_vec))
+```
+The means of `samp` and `samp_gt_0` can be taken, because `samp` is numeric and `samp_gt_0` is logical. The means of `char_vec` and `factor_vec` cannot be taken since they are not numeric or logical.
 
