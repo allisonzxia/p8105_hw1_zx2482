@@ -1,19 +1,71 @@
-Simple document
+p8105_hw1_zx2482
 ================
 
-I’m an R Markdown document!
-
-# Section 1
-
-Here’s a **code chunk** that samples from a *normal distribution*:
-
 ``` r
-samp = rnorm(100)
-length(samp)
+library(moderndive)
+library(skimr)
+library(ggplot2)
 ```
 
-    ## [1] 100
+# Problem 1
 
-# Section 2
+``` r
+# Load the data
+data("early_january_weather")
+```
 
-I can take the mean of the sample, too! The mean is -0.136149.
+``` r
+# Learn the data
+variable.names(early_january_weather)
+```
+
+    ##  [1] "origin"     "year"       "month"      "day"        "hour"      
+    ##  [6] "temp"       "dewp"       "humid"      "wind_dir"   "wind_speed"
+    ## [11] "wind_gust"  "precip"     "pressure"   "visib"      "time_hour"
+
+``` r
+ncol(early_january_weather)
+```
+
+    ## [1] 15
+
+``` r
+nrow(early_january_weather)
+```
+
+    ## [1] 358
+
+``` r
+mean(early_january_weather$"temp")
+```
+
+    ## [1] 39.58212
+
+- This dataset consists hourly meterological data for LGA, JFK and EWR
+  for the month of January 2013.
+- The variable names are as follows:
+  “origin”,“year”,“month”,“day”,“hour”,“temp”,“dewp”,“humid”,“wind_dir”,“wind_speed”,“wind_gust”,“precip”,“pressure”,“visib”,“time_hour”
+- The size of the dataset is 15 (# of rows) \* 358 (# of columns)
+- The mean temperature is 39.58 F
+
+``` r
+ggplot(early_january_weather, aes (x =time_hour,y = temp, color = humid))+
+  geom_point()
+```
+
+![](template_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+The scatterplot shows the variability of temperatures from January 1st
+to 15th at three major airports in the New York area. The fluctuations
+on the graph indicate that the temperature rises and falls throughout
+the day. Overall, this chart shows a slightly upward trend, implying the
+temperature might have increased during January 1-15.The humidity
+throughout the month is primarily between 40-80%, but from approximately
+January 12th to 14th, the humidity is noticeably higher than usual,
+reaching 90-100%.
+
+``` r
+ggsave("scatterplot1.png")
+```
+
+    ## Saving 7 x 5 in image

@@ -1,21 +1,43 @@
 ---
-title: "Simple document"
+title: "p8105_hw1_zx2482"
 output: github_document
 ---
 
-I'm an R Markdown document! 
-
-# Section 1
-
-Here's a **code chunk** that samples from 
-a _normal distribution_:
-
 ```{r}
-samp = rnorm(100)
-length(samp)
+library(moderndive)
+library(skimr)
+library(ggplot2)
 ```
 
-# Section 2
+# Problem 1
 
-I can take the mean of the sample, too!
-The mean is `r mean(samp)`.
+```{r}
+# Load the data
+data("early_january_weather")
+```
+
+```{r}
+# Learn the data
+variable.names(early_january_weather)
+ncol(early_january_weather)
+nrow(early_january_weather)
+mean(early_january_weather$"temp")
+```
+* This dataset consists hourly meterological data for LGA, JFK and EWR for the month of January 2013. 
+* The variable names are as follows: "origin","year","month","day","hour","temp","dewp","humid","wind_dir","wind_speed","wind_gust","precip","pressure","visib","time_hour"
+* The size of the dataset is 15 (# of rows) * 358 (# of columns)
+* The mean temperature is 39.58 F
+
+```{r}
+ggplot(early_january_weather, aes (x =time_hour,y = temp, color = humid))+
+  geom_point()
+```
+
+The scatterplot shows the variability of temperatures from January 1st to 15th at three major airports in the New York area. The fluctuations on the graph indicate that the temperature rises and falls throughout the day. Overall, this chart shows a slightly upward trend, implying the temperature might have increased during January 1-15.The humidity throughout the month is primarily between 40-80%, but from approximately January 12th to 14th, the humidity is noticeably higher than usual, reaching 90-100%.
+
+```{r}
+ggsave("scatterplot1.png")
+```
+
+
+
